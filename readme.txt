@@ -12,6 +12,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
+###支持博客连接：
+http://levi.cg.am/archives/3759
+
+有什么问题以及意见请在这里提出来，我会做出及时修正
+
 将博客园（http://www.cnblogs.com/）以及开源中国-博客（http://www.oschina.net/blog）数据转换至wordpress中
 
 在11年的时候就发布过一个数据导入的插件，最近有朋友反馈会报错。经过检查问题应该出在xml文件检测上。
