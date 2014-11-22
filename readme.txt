@@ -20,8 +20,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Screenshots ==
 
-1. /assets/screenshot-1.png
-2. /assets/screenshot-2.png
+1. 导入博客园（cnblogs）文章到wordpress中
+2. 导入开源中国（osc）博客文章到wordpress中
 
 == Installation ==
 
