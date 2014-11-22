@@ -1,4 +1,4 @@
-=== WordPress Importer ===
+=== cnblogs2wp ===
 Contributors: cgfeel
 Donate link: 
 Tags: importer, cnblogs, oschina, wordpress
