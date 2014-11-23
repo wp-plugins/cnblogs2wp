@@ -47,21 +47,21 @@ class XML_Parse
 		return $this->_data;
 	}
 	
-	public function query($node, $call, $item = 0) 
+	public function query($node, $item = 0)
 	{
-		if (false == ($xpath = $this->_xpath)) 
+		if (false == ($xpath = $this->_xpath))
 		{
 			throw new Exception('Xpath 数据为空');
 		}
-		
+	
 		$node = is_array($node) ? call_user_func_array(array($xpath, 'query'), $node) : $xpath->query($node);
 		if ($item > -1)
 		{
-			return $node->item($item) && $call($node->item($item));
+			return $node->item($item) ? $node->item($item) : null;
 		}
 		else
 		{
-			return $node->length && $call($node);
+			return $node->length ? $node : null;
 		}
 	}
 	
@@ -131,19 +131,20 @@ class XML_Parse
 			$data['category'][] = $data['category_map']['data'];
 		}
 		
-		$this->query('//title', function($title) use(&$data)
+		if (false != ($title = $this->query('//title'))) 
 		{
-			$data['author'] = explode('的', $title->nodeValue)[0];
-		});
+			$node = explode('的', $title->nodeValue);
+			$data['author'] = $node[0];
+		}
 		
-		$this->query('//h1//@href', function($link) use(&$data) 
+		if (false != ($link = $this->query('//h1//@href')))
 		{
 			$data['base_url'] = $link->nodeValue;
-		});
+		}
 		
-		$this->query("//*[contains(@class,'blog')]", function($elements) use($self, &$data) 
+		if (false != ($elements = $this->query("//*[contains(@class,'blog')]", -1)))
 		{
-			foreach ($elements as $key => $emt)
+			foreach ($elements as $key => $emt) 
 			{
 				if (!$key)
 				{
@@ -151,32 +152,33 @@ class XML_Parse
 				}
 				
 				$value = array();
-				$self->query(array('.//h2/*', $emt), function($title) use($self, &$value) 
+				if (false != ($title = $this->query(array('.//h2/*', $emt), 1))) 
 				{
 					$value['title'] = $title->nodeValue;
-					$self->query(array('.//@href', $title), function($url) use(&$value) 
+					if (false != ($url = $this->query(array('.//@href', $title)))) 
 					{
 						$value['url'] = $url->nodeValue;
-					});
-				}, 1);
+					}
+				}
 				
-				$self->query(array(".//*[contains(@class,'date')]", $emt), function($time) use(&$value)
+				if (false != ($time = $this->query(array(".//*[contains(@class,'date')]", $emt)))) 
 				{
-					$value['pubDate'] = explode('：', $time->nodeValue)[1];
-				});
+					$node = explode('：', $time->nodeValue);
+					$value['pubDate'] = $node[1];
+				}
 				
-				if (empty($data['category_map']['slug']))
+				if (empty($data['category_map']['slug'])) 
 				{
-					$self->query(array(".//*[contains(@class,'catalog')]", $emt), function($catelog) use(&$value, &$data)
+					if (false != ($catelog = $this->query(array(".//*[contains(@class,'catalog')]", $emt))))
 					{
-						$node = explode('：', $catelog->nodeValue)[1];
-						$data['category'][] = $node;
+						$node = explode('：', $catelog->nodeValue);
+						$data['category'][] = $node[1];
 						$value['terms'][] = array(
-							'name' => $node,
-							'slug' => urlencode($node),
+							'name' => $node[1],
+							'slug' => urlencode($node[1]),
 							'domain' => 'category'
 						);
-					});
+					}
 				}
 				else 
 				{
@@ -187,12 +189,14 @@ class XML_Parse
 					);
 				}
 				
-				$self->query(array(".//*[contains(@class,'tags')]", $emt), function($tags) use(&$value, &$data)
+				if (false != ($tags = $this->query(array(".//*[contains(@class,'tags')]", $emt)))) 
 				{
-					$node = explode(',', explode('：', $tags->nodeValue)[1]);
+					$node = explode('：', $tags->nodeValue);
+					$node = explode(',', $node[1]);
+					
 					$node = array_flip(array_flip($node));
 					$data['post_tag'] = array_merge($data['post_tag'], $node);
-					foreach ($node as $name) 
+					foreach ($node as $name)
 					{
 						$value['terms'][] = array(
 							'name' => $name,
@@ -200,16 +204,16 @@ class XML_Parse
 							'domain' => 'post_tag'
 						);
 					}
-				});
+				}
 				
-				$self->query(array(".//*[contains(@class,'content')]", $emt), function($content) use(&$value)
+				if (false != ($content = $this->query(array(".//*[contains(@class,'content')]", $emt))))
 				{
 					$value['content'] = $content->ownerDocument->saveXML($content);
-				});
+				}
 				
 				$value && $data['posts'][] = $value;
 			}
-		}, -1);
+		}
 		
 		if (empty($data['posts'])) 
 		{
