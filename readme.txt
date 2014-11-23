@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, wordpress
 Requires at least: 3.0
 Tested up to: 4.01
-Stable tag: 0.2.2
+Stable tag: 0.2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-###支持连接：
+**支持连接：**
 http://levi.cg.am/archives/3759
 
 有什么问题以及意见请在这里提出来，我会做出及时修正
@@ -50,6 +50,9 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.2.3 =
+* 修正一处正则匹配
+
 = 0.2.2 =
 * 向下兼容至php5.2，详细见：Upgrade
 
@@ -65,6 +68,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.2.3 =
+* 修正一处正则匹配
 
 = 0.2.2 =
 * 向下兼容：调整了函数中的闭包方法

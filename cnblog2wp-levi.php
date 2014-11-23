@@ -4,7 +4,7 @@
  * Plugin URI: http://levi.cg.am
  * Description: 将博客园（http://www.cnblogs.com/）以及开源中国-博客（http://www.oschina.net/blog）数据转换至wordpress中
  * Author: Levi
- * Version: 0.2.2
+ * Version: 0.2.3
  * Author URI: http://levi.cg.am
  * Text Domain: wordpress-importer
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -388,7 +388,7 @@ class CNblogToWP extends Lv_ui
 					continue;
 				}
 				
-				if ($this->_fetch_attachments && preg_match_all('/png|gif|jpe?g/is', $post['content'])) 
+				if ($this->_fetch_attachments && preg_match_all('/png|gif|jpe?g/is', $post['content'], $img)) 
 				{
 					$self = $this;
 					$post['post_parent'] = $post_id;
