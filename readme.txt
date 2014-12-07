@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, wordpress
 Requires at least: 3.0
 Tested up to: 4.01
-Stable tag: 0.2.3
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,6 +27,8 @@ http://levi.cg.am/archives/3759
 
 1. 导入博客园（cnblogs）文章到wordpress中
 2. 导入开源中国（osc）博客文章到wordpress中
+3. 导入CSDN博客文章到wordpress中
+4. 数据导入过程
 
 == Installation ==
 
@@ -38,17 +40,22 @@ http://levi.cg.am/archives/3759
 
 离线安装方法：
 
-1.下载离线插件包并解压
-2.复制目录到/wp-content/plugins/目录下
-3.进入wordpress控制台
-4.插件管理中找到并启用“转换博客园、开源中国博客文章到wordpress”
+1. 下载离线插件包并解压
+2. 复制目录到/wp-content/plugins/目录下
+3. 进入wordpress控制台
+4. 插件管理中找到并启用“转换博客园、开源中国博客文章到wordpress”
 
 数据导入方法：
 
-1.点击“工具-导入”，在列表中找到并选择“博客园或开源中国的数据导入”
-2.上传对应的数据，导入按照流程导入
+1. 点击“工具-导入”，在列表中找到并选择“博客搬家”
+2. 上传对应的数据，导入按照流程导入
 
 == Changelog ==
+
+= 0.3.1 =
+* 新增插件机制，支持以“插拔”的方式导入数据
+* 重新修改插件导入数据的方式，采用“无阻塞”的方式导入数据
+* 新增CSDN博客文章导入到wordpress
 
 = 0.2.3 =
 * 修正一处正则匹配
@@ -83,6 +90,8 @@ http://levi.cg.am/archives/3759
 3.需要浏览器支持js运行，否则筛选分类无效
 
 == Filters ==
+
+更多请参考：[数据导入插件中的钩子](http://levi.cg.am/wiki/cnblogs%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5wordpress/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E6%8F%92%E4%BB%B6%E4%B8%AD%E7%9A%84%E9%92%A9%E5%AD%90)
 
 The importer has a couple of filters to allow you to completely enable/block certain features:
 

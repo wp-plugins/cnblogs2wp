@@ -1,7 +1,45 @@
-<?php
-$name = array('博客园(cnblog)', '开源中国(osc)');
-?><div class="wrap">
-    <h2>导入<?php echo $name[$this->type - 1]; ?>数据倒入当前WordPress中</h2>
+<div class="wrap">
+<style>
+.error {
+    background: #fee;
+    border: 1px solid #f00;
+    padding: 8px;
+}
+
+.narrow {
+    float: left;
+}
+
+.import-hr {
+    clear: left;
+}
+
+.waiting {
+    font-size: 18px;
+    padding: 60px;
+    text-align: center;
+}
+
+.url_input {
+    width: 320px;
+}
+
+#import-help ul {
+    list-style: initial;
+}
+</style>
+    <h2>博客搬家到wordpress</h2>
+    <h2 class="nav-tab-wrapper">
+        <?php
+        foreach ($this->val as $key => $val) 
+        {
+            printf('<a class="nav-tab%s" href="?import=cn_blog&amp;type=%s">%s</a>', 
+                    $key == Cnblog2wp::$type ? ' nav-tab-active' : '',
+                    $key,
+                    $val['title']);
+        }
+        ?>
+    </h2>
     <?php
     $updates = get_plugin_updates();
     $basename = plugin_basename(__FILE__);
