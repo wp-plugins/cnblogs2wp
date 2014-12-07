@@ -1,7 +1,7 @@
 === cnblogs2wp ===
 Contributors: cgfeel
 Donate link: 
-Tags: importer, cnblogs, oschina, wordpress
+Tags: importer, cnblogs, oschina, csdn, wordpress
 Requires at least: 3.0
 Tested up to: 4.01
 Stable tag: 0.3.1
