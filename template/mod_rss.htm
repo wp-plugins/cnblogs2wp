@@ -1,0 +1,19 @@
+		<div class="step">
+			<?php 
+			printf(
+				'<form method="post" id="import-upload-form" class="wp-upload-form" action="admin.php?import=cn_blog&amp;type=%s&amp;step=1&amp;_wpnonce=%s">',
+				$data['type'],
+				wp_create_nonce('import-upload'));
+			?>
+				<input type="hidden" name="import_loadfile_id" value="<?php echo $data['id']; ?>" />
+				<p class="submit">
+					<input type="submit" name="send_parse_import" value="确认并导入数据" class="button" />
+				</p>
+			<?php echo '</form>'; ?>
+		</div>
+	</div>
+	<?php include 'help.htm'; ?>
+	<hr class="import-hr" />
+	<p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
+	<?php printf('<script type="text/javascript" src="%s?ver=wordpress"></script>', plugins_url('cnblog2wp.js', dirname(__FILE__))); ?>
+</div>

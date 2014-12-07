@@ -1,0 +1,16 @@
+	<div class="narrow">
+		<p>为了确保您导入的博客文章为您所属，请在导入数据前，按照下面的步骤认证您的博客</p>
+		<h3>1.修改博客名称</h3>
+		<p>请手动复制字符：<?php echo $key; ?>，在CSDN个人“博客配置”中，将其添加在“博客标题”后，并保存设置</p>
+		<h3>2.效验地址</h3>
+		<p>修改“博客标题”后，回到导入数据页面，将您在CSDN中的个人博客首页地址粘贴到下面输入框当中</p>
+		<form action="admin.php?import=cn_blog&amp;type=<?php echo Cnblog2wp::$type; ?>&amp;show=1" method="post">
+			<?php wp_nonce_field('load_xml_url'); ?>
+			<p><input type="text" name="url" class="url_input" value="" /></p>
+			<p><input type="submit" name="send_url" class="button" value="提交地址" /></p>
+		</form>
+	</div>
+	<?php include 'help.htm'; ?>
+	<hr class="import-hr" />
+	<p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
+</div>

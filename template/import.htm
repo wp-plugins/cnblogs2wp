@@ -1,0 +1,32 @@
+<?php
+$status = ParseImport::status();
+?><style>
+#msg_list {
+	width: 500px;
+	height: 300px;
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 2px 15px;
+	overflow: auto;
+}
+
+.status {
+	display: none;
+}
+</style>
+	<div id="status_0" class="status"<?php echo $status == 0 ? ' style="display: block;"' : ''; ?>>
+		<p>当前状态：等待系统接受请求</p>
+		<p>请稍等，不要跳出当前页面，正在向系统提交数据导入请求</p>
+	</div>
+	<div id="status_1" class="status"<?php echo $status == 1 ? ' style="display: block;"' : ''; ?>>
+		<p>当前状态：后台正在向系统导入数据</p>
+		<p>此时你可以离开当前页面哦~如果需要中途强制终止数据导入请 <a href="javascript:void(0)" class="stop">点击强制系统终止导入数据</a></p>
+	</div>
+	<hr />
+	<div id="msg_box">
+		<p><strong>数据导入情况：</strong></p>
+		<div id="msg_list">
+			<p>请稍等片刻...</p>
+		</div>
+	</div>
+</div>
