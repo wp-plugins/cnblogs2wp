@@ -565,7 +565,6 @@ class ParseImport
 					continue;
 				}
 
-				$this->step->write('test point: '. ($post_exists ? 1 : 0));
 				if ($fetch && preg_match('/png|gif|jpe?g/is', $postdata['post_content']))
 				{
 					$postdata['post_parent'] = $post_id;
