@@ -8,7 +8,7 @@ Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-将博客园（http://www.cnblogs.com/）以及开源中国-博客（http://www.oschina.net/blog）数据转换至wordpress中
+支持导入文章到wordpress的博客平台包含有：博客园、OSChina、CSDN
 
 == Description ==
 
