@@ -8,7 +8,7 @@ Stable tag: 0.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-支持导入文章到wordpress的博客平台包含有：博客园、OSChina、CSDN
+支持导入文章到wordpress的博客，平台包含有：博客园、OSChina、CSDN、点点
 
 == Description ==
 
@@ -54,6 +54,7 @@ http://levi.cg.am/archives/3759
 
 = 0.4.1 =
 * 增加导入”点点”博客文章；
+* 插件中心增加“开始导入”引导链接；
 * 允许导入隐私文章（需导入的数据提供支持）；
 * 允许置顶文章（需导入的数据提供支持）；
 * 兼容更新至wordpress 4.1；
