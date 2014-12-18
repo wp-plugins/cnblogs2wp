@@ -4,12 +4,25 @@
  * Plugin URI: http://levi.cg.am
  * Description: 支持从以下站点搬家到wordpress：博客园、OSChina、CSDN、点点、LOFTER
  * Author: Levi
- * Version: 0.3.1
+ * Version: 0.3.2
  * Author URI: http://levi.cg.am
  * Text Domain: cnblogs-importer
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+function cnblog2wp_plugin_action_links($links, $file)
+{
+	static $this_plugin;
+	
+	if (!$this_plugin) $this_plugin = plugin_basename(__FILE__);
+	if ($file == $this_plugin)
+	{
+		array_unshift($links, '<a href="' . esc_url(admin_url('admin.php?import=cn_blog')) . '">开始导入</a>');
+	}
+
+	return $links;
+}
+add_filter('plugin_action_links', 'cnblog2wp_plugin_action_links', 2, 2 );
 if (!defined( 'WP_LOAD_IMPORTERS') && strpos($_SERVER['REQUEST_URI'], 'wp-admin/admin-ajax.php') === false)
 	return;
 
@@ -363,8 +376,8 @@ class ParseImport
 		
 		// 暂停缓存
 		wp_suspend_cache_invalidation(true);
-		$this->_process();
-		$this->_process(2);
+// 		$this->_process();
+// 		$this->_process(2);
 		$this->_processPosts();
 		wp_suspend_cache_invalidation(false);
 		
@@ -388,7 +401,6 @@ class ParseImport
 		wp_defer_term_counting(false);
 		wp_defer_comment_counting(false);
 		
-		$this->step->write(sprintf('停止状态：%s', var_export($stop)));
 		update_option('cnblog2wp-levi', array(
 			'status' => $stop ? 3 : 2,
 			'msg' => $stop ? '已强制终止系统导入数据' : '数据已经全部导入完毕',
@@ -525,6 +537,7 @@ class ParseImport
 			}
 			else
 			{
+				$open = isset($post['status']) ? $post['status'] : true;
 				$postdata = array(
 					'import_id' => '',
 					'post_author' => $this->_author_mapping,
@@ -533,9 +546,9 @@ class ParseImport
 					'post_content' => $post['content'],
 					'post_excerpt' => '',
 					'post_title' => $post['title'],
-					'post_status' => 'publish',
+					'post_status' => $open ? 'publish' : 'private',
 					'post_name' => urlencode($post['title']),
-					'comment_status' => 'open',
+					'comment_status' => $open ? 'open' : 'closed',
 					'ping_status' => 'open',
 					'guid' => '',
 					'post_parent' => 0,
@@ -641,13 +654,13 @@ class ParseImport
 
 	private function _getCategoryMap()
 	{
-		$terms = get_terms('category');
 		$map = array(
 			'type' => isset($_POST['selet_category']) ? (int)$_POST['selet_category'] : 0,
 			'slug' => ''
 		);
 	
 		$map['type'] = max(min(3, $map['type']), 1);
+		$terms = get_terms('category', array('hide_empty' => 0));
 		switch ($map['type'])
 		{
 			case 1:
@@ -663,7 +676,7 @@ class ParseImport
 					$map['data'] = is_array($term) ? $term['term_id'] : (int)$term;
 					foreach ($terms as $t)
 					{
-						$t->term_id == $map['data'] && $map['data'] = $t->name;
+						($t->term_id == $map['data']) && $map['data'] = $t->name;
 					}
 				}
 	
@@ -746,7 +759,9 @@ class Cnblog2wp extends Lv_ui
 			return ;
 		}
 
+		delete_transient('blogs_import_stop');
 		do_action('import_display_start_'.self::$type);
+		
 		wp_enqueue_script('cnblog2wp');
 		$this->template('mod');
 	}
@@ -930,7 +945,7 @@ function cnblog2wp_lv_importer_init()
 	
 	wp_register_script('cnblog2wp', plugins_url('cnblog2wp.js', __FILE__), array('jquery'), time());
 	wp_register_script('press_data_init', plugins_url('press_data_init.js', __FILE__), array('jquery'), time());
-	
+
 	add_action('blogs_levi_import_insert_post_'.Cnblog2wp::$type, array($step, 'roll'), 10, 3);
 	add_action('blogs_levi_import_insert_attach', array($step, 'rollAttach'), 10, 2);
 	add_action('blogs_levi_import_insert_terms', array($step, 'rollTerms'), 10, 2);

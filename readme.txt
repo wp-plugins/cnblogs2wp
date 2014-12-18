@@ -1,10 +1,10 @@
 === cnblogs2wp ===
 Contributors: cgfeel
 Donate link: 
-Tags: importer, cnblogs, oschina, csdn, wordpress
-Requires at least: 3.0
-Tested up to: 4.01
-Stable tag: 0.3.1
+Tags: importer, cnblogs, oschina, csdn, 点点, wordpress
+Requires at least: 3.1.0
+Tested up to: 4.1
+Stable tag: 0.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,15 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.4.1 =
+* 增加导入”点点”博客文章；
+* 允许导入隐私文章（需导入的数据提供支持）；
+* 允许置顶文章（需导入的数据提供支持）；
+* 兼容更新至wordpress 4.1；
+* 提高分类导入效率：去除导入分类步骤；
+* 修复分类导入：新增分类为已存在的分类名称时导入不正确；
+* 修正强制终止数据导入后，临时状态数据未被清除情况；
+
 = 0.3.1 =
 * 新增插件机制，支持以“插拔”的方式导入数据
 * 重新修改插件导入数据的方式，采用“无阻塞”的方式导入数据
@@ -75,6 +84,12 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.4.1 =
+* 增加点点文章导入到wordpress，bug修复
+
+= 0.3.1 =
+* 增加csdn博客文章导入到wordpress
 
 = 0.2.3 =
 * 修正一处正则匹配

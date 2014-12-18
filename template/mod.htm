@@ -13,12 +13,17 @@
 				$create_users = $this->allow_create_users(); 
 				if ($create_users) {
 				?>
-				<input type="radio" value="1" name="selet_author" />
-				创建一位新用户，登录名为： <input type="text" name="user_new" value="" /><br />
+				<label>
+					<input type="radio" value="1" name="selet_author" />
+					创建一位新用户，登录名为：
+				</label> 
+				<input type="text" name="user_new" value="" /><br />
 				<?php } ?>
                 
-				<input type="radio" value="2" name="selet_author" checked="checked" />
-				将日志分配给现有用户：
+                <label>
+					<input type="radio" value="2" name="selet_author" checked="checked" />
+					将日志分配给现有用户：
+				</label>
 				<?php wp_dropdown_users(array('name' => 'user_map', 'multi' => true, 'hide_empty' => false)); ?>
 				<p>如果在 WordPress 中创建一个新用户，会随机生成一个用户密码并将权限设置为 subscriber。如果必要的话，请手动更改用户信息。</p>
 			</div>
@@ -29,18 +34,25 @@
 			<p>请选择导入的文章归属分类为：</p>
 			<div style="margin-left:18px">
 				<p>
-					<input type="radio" value="1" name="selet_category" />
-					创建一个新分类，分类名称为： <input type="text" name="category_new" value="" />
+                	<label>
+						<input type="radio" value="1" name="selet_category" />
+						创建一个新分类，分类名称为：
+					</label>
+					<input type="text" name="category_new" value="" />
 				</p>
 				<p>
-					<?php printf('<input type="radio" value="2" name="selet_category"%s />', !$data['category'] ? ' checked="checked"' : ''); ?>
-					将日志分配给现有用户：
+                	<label>
+						<?php printf('<input type="radio" value="2" name="selet_category"%s />', !$data['category'] ? ' checked="checked"' : ''); ?>
+						将日志分配给现有用户：
+					</label>
 					<?php wp_dropdown_categories(array('name' => 'category_map', 'hide_empty' => false)); ?>
 				</p>
 				<?php if ($data['category']) { ?>
 				<p>
-					<input type="radio" value="3" name="selet_category" checked="checked" /> 
-					保持文章分类不变（若文章没有分类，将归属于当前博客“默认分类”）
+                	<label>
+						<input type="radio" value="3" name="selet_category" checked="checked" /> 
+						保持文章分类不变（若文章没有分类，将归属于当前博客“默认分类”）
+					</label>
 				</p>
 				<?php } ?>
 			</div>
