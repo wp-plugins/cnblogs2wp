@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, csdn, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.4.2
+Stable tag: 0.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 **支持导入文章的平台：**
+
 * [博客园](http://www.cnblogs.com/)
 * [开源中国](http://www.oschina.net/blog)
 * [CSDN](http://blog.csdn.net/)
@@ -58,12 +59,16 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.4.3 =
+* 修正一处错误，向下兼容低版本php；
+
 = 0.4.2 =
 * 修正一处错误，向下兼容低版本php；
 
 = 0.4.1 =
 * 增加导入”点点”博客文章；
 * 插件中心增加“开始导入”引导链接；
+* 支持导入文章形式（需导入的数据提供支持）；
 * 允许导入隐私文章（需导入的数据提供支持）；
 * 允许置顶文章（需导入的数据提供支持）；
 * 兼容更新至wordpress 4.1；
@@ -94,6 +99,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.4.3 =
+* 修正一处错误，向下兼容低版本php；
 
 = 0.4.2 =
 * 修正一处错误，向下兼容低版本php；
