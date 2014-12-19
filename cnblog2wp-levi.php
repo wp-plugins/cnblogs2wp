@@ -4,7 +4,7 @@
  * Plugin URI: http://levi.cg.am
  * Description: 支持从以下站点搬家到wordpress：博客园、OSChina、CSDN、点点、LOFTER
  * Author: Levi
- * Version: 0.4.1
+ * Version: 0.4.2
  * Author URI: http://levi.cg.am
  * Text Domain: cnblogs-importer
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -734,7 +734,11 @@ class Cnblog2wp extends Lv_ui
 	public function dispatch() 
 	{
 		uasort($this->val, array($this, 'sort_num'));
-		!array_key_exists(self::$type, $this->val) && self::$type = array_keys($this->val)[0];
+		if (!array_key_exists(self::$type, $this->val)) 
+		{
+			$type = array_keys($this->val);
+			self::$type = $type[0];
+		}
 
 		$this->template('header');
 		if (ParseImport::status() == 1) 

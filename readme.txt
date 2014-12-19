@@ -4,13 +4,19 @@ Donate link:
 Tags: importer, cnblogs, oschina, csdn, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.4.1
+Stable tag: 0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 支持导入文章到wordpress的博客，平台包含有：博客园、OSChina、CSDN、点点
 
 == Description ==
+
+**支持导入文章的平台：**
+* [博客园](http://www.cnblogs.com/)
+* [开源中国](http://www.oschina.net/blog)
+* [CSDN](http://blog.csdn.net/)
+* [点点](http://www.diandian.com/)
 
 **支持连接：**
 http://levi.cg.am/archives/3759
@@ -52,6 +58,9 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.4.2 =
+* 修正一处错误，向下兼容低版本php；
+
 = 0.4.1 =
 * 增加导入”点点”博客文章；
 * 插件中心增加“开始导入”引导链接；
@@ -86,6 +95,9 @@ http://levi.cg.am/archives/3759
 
 == Upgrade Notice ==
 
+= 0.4.2 =
+* 修正一处错误，向下兼容低版本php；
+
 = 0.4.1 =
 * 增加点点文章导入到wordpress，bug修复
 
@@ -101,9 +113,9 @@ http://levi.cg.am/archives/3759
 
 == Frequently Asked Questions ==
 
-1.cnblogs的数据文件是xml，osc的数据文件是htm，不能混淆导入
-2.导入文件大小根据wordpress设定来决定的，若你导入的数据文件超出了服务器、主机限制，请自行百度或google搜索：“wordpress 文件上传限制”
-3.需要浏览器支持js运行，否则筛选分类无效
+1. cnblogs的数据文件是xml，osc的数据文件是htm，不能混淆导入
+2. 导入文件大小根据wordpress设定来决定的，若你导入的数据文件超出了服务器、主机限制，请自行百度或google搜索：“wordpress 文件上传限制”
+3. 需要浏览器支持js运行，否则筛选分类无效
 
 == Filters ==
 
