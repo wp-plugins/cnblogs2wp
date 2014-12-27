@@ -1,14 +1,14 @@
 === cnblogs2wp ===
 Contributors: cgfeel
 Donate link: 
-Tags: importer, cnblogs, oschina, csdn, 点点, wordpress
+Tags: importer, cnblogs, oschina, csdn, lofter, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.4.3
+Stable tag: 0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-支持导入文章到wordpress的博客，平台包含有：博客园、OSChina、CSDN、点点
+支持导入文章到wordpress的博客，平台包含有：博客园、OSChina、CSDN、点点、Lofter
 
 == Description ==
 
@@ -18,6 +18,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 * [开源中国](http://www.oschina.net/blog)
 * [CSDN](http://blog.csdn.net/)
 * [点点](http://www.diandian.com/)
+* [Lofter](http://www.lofter.com/)
 
 **支持连接：**
 http://levi.cg.am/archives/3759
@@ -59,6 +60,11 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.5.1 =
+* 增加Lofter轻博客文章导入wordpress；
+* 更新UA信息；
+* 调整导入菜单排序；
+
 = 0.4.3 =
 * 修正一处错误，向下兼容低版本php；
 
@@ -99,6 +105,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.5.1 =
+* 增加Lofter轻博客文章导入wordpress；
 
 = 0.4.3 =
 * 修正一处错误，向下兼容低版本php；

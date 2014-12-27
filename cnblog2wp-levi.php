@@ -4,7 +4,7 @@
  * Plugin URI: http://levi.cg.am
  * Description: 支持从以下站点搬家到wordpress：博客园、OSChina、CSDN、点点、LOFTER
  * Author: Levi
- * Version: 0.4.3
+ * Version: 0.5.1
  * Author URI: http://levi.cg.am
  * Text Domain: cnblogs-importer
  * License: GPL version 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
@@ -945,8 +945,7 @@ function cnblog2wp_lv_importer_init()
 {
 	global $cnblogs, $step;
 	
-	register_importer('cn_blog', '博客搬家', '支持：博客园、OSChina、CSDN、点点、LOFTER', array($cnblogs, 'dispatch'));
-	
+	register_importer('cn_blog', '.博客搬家.', '支持：博客园、OSChina、CSDN、点点、LOFTER', array($cnblogs, 'dispatch'));	
 	wp_register_script('cnblog2wp', plugins_url('cnblog2wp.js', __FILE__), array('jquery'));
 	wp_register_script('press_data_init', plugins_url('press_data_init.js', __FILE__), array('jquery'));
 

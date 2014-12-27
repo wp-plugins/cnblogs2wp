@@ -14,6 +14,27 @@ function check_xml($str)
 	return simplexml_load_string($str);
 }
 
+function postFomat()
+{
+	$fomat = array(
+		'standard' => '标准',
+		'image' => '图像',
+		'link' => '链接',
+		'audio' => '音频',
+		'video' => '视频'
+	);
+
+	if (false != ($diff = array_diff_key($fomat, get_post_format_strings())))
+	{
+		foreach ($diff as $type => $name)
+		{
+			register_post_type($type, array(
+				'public' => true, 'label' => $name
+			));
+		}
+	}
+}
+
 function bump_request_timeout() 
 {
 	return 60;
@@ -21,7 +42,7 @@ function bump_request_timeout()
 
 function bump_request_ua() 
 {
-	return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/38.0.2125.111 Safari/537.36';
+	return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36';
 }
 
 function get_dom($str) 
@@ -530,8 +551,141 @@ function cnblogs_parse($str, $map)
 }
 
 // lofter_parse
-function lofter_parse() 
+function lofter_parse($str, $map) 
 {
+	$xml = check_xml($str);
+	$data = array(
+		'base_url' => (string)$xml->description->BlogDomain,
+		'author' => '',
+		'category_map' => $map,
+		'category' => array(),
+		'post_tag' => array(),
+		'posts' => array()
+	);
+	
+	$fomat = array('video' => 'video', 'music' => 'audio', 'photo' => 'image', 'text' => 'standard');
+	if (!strstr($data['base_url'], 'lofter.com'))
+	{
+		throw new Exception('导入的数据不正确');
+	}
+	
+	postFomat();
+	foreach ($xml->PostItem as $item) 
+	{
+		$type = strtolower($item->type);
+		$value = array(
+			'terms' => array(),
+			'type' => isset($fomat[$type]) ? $fomat[$type] : 'standard',
+			'title' => str_replace(array('<![cdata[', ']]>'), array('', ''), $item->title),
+			'url' => sprintf('%s/%s', $data['base_url'], (string)$item->permalink),
+			'pubDate' => date('Y-m-d H:i:s', floor((int)$item->publishTime / 1000)),
+			'terms' => array(),
+			'content' => ''
+		);
+		
+		if (!empty($data['category_map']['slug']))
+		{
+			$value['terms'][] = array(
+				'name' => $data['category_map']['data'],
+				'slug' => $data['category_map']['slug'],
+				'domain' => 'category'
+			);
+		}
+		
+		if (isset($item->tag)) 
+		{
+			$tags = explode(',', (string)$item->tag);
+			foreach ($tags as $tag) 
+			{
+				$value['terms'][] = array(
+					'name' => $tag,
+					'slug' => urlencode($tag),
+					'domain' => 'post_tag'
+				);
+			}
+		}
+		
+		if (isset($item->embed)) 
+		{
+			$embed = str_replace(array('<![cdata[', ']]>'), array('', ''), $item->embed);
+			$embed = json_decode($embed);
+			
+			if ($embed->type == 'cloudmusic') 
+			{
+				$value['content'] .= sprintf('<dt>专辑名称：</dt><dd>%s<dd>', urldecode($embed->album_name));
+				$value['content'] .= sprintf('<dt>艺术家：</dt><dd>%s<dd>', urldecode($embed->artist_name));
+				$value['content'] .= sprintf('<dt>专辑封面：</dt><dd><img src="%s" alt="" /><dd>', $embed->album_logo);
+				$value['content'] .= sprintf('<dt>音乐名称：</dt><dd>%s<dd>', urldecode($embed->song_name));
+				$value['content'] .= sprintf('<dt>在线收听：</dt><dd>
+												<object width="257" height="34" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0">
+													<param name="movie" value="http://s1.music.126.net/style/swf/LofterMusicPlayer.swf?0003 ">
+													<param name="wmode" value="transparent">
+													<param name="quality" value="high">
+													<param name="flashvars" value="loop=&amp;autoPlay=false&amp;url=%s&amp;trackId=%d&amp;trackName=%s&amp;artistName=%s">
+													<embed flashvars="loop=&amp;autoPlay=false&amp;url=%1$s&amp;trackId=%2$d&amp;trackName=%3$s&amp;artistName=%4$s" src="http://s1.music.126.net/style/swf/LofterMusicPlayer.swf?0003 " type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" wmode="transparent" quality="high" allowscriptaccess="always" allownetworking="all" width="257" height="34">
+												</object><dd>', $embed->listenUrl, $embed->song_id, urldecode($embed->song_name), urldecode($embed->artist_name));
+				
+				$value['content'] = sprintf('<dl>%s</dl>', $value['content']);
+			}
+			elseif (isset($embed->flashurl)) 
+			{
+				$value['content'] .= sprintf('<object width="637" height="530" data-aspect="0.832" style="width: 637px; height: 530px;">
+												<param name="allowscriptaccess" value="sameDomain">
+												<param name="wmode" value="transparent">
+												<param name="movie" value="%s">
+												<param name="allowfullscreen" value="true">
+												<embed src="%1$s" width="637" height="530" allowscriptaccess="sameDomain" allowfullscreen="true" wmode="transparent" type="application/x-shockwave-flash" data-aspect="0.832" style="width: 637px; height: 530px;">
+											</object>',
+											$embed->flashurl);
+			}
+		}
+		
+		if (isset($item->photoLinks)) 
+		{
+			$photo = str_replace(array('<![cdata[', ']]>'), array('', ''), $item->photoLinks);
+			$photo = json_decode($photo);
+			
+			foreach ($photo as $link) 
+			{
+				$value['content'] .= sprintf('<p><img src="%s" alt="" /></p>', $link->orign);
+			}
+		}
+		
+		$content = '';
+		isset($item->caption) && $content .= str_replace(array('<![cdata[', ']]>'), array('', ''), $item->caption);
+		isset($item->content) && $content .= str_replace(array('<![cdata[', ']]>'), array('', ''), $item->content);
+		
+		$value['content'] .= $content;
+		if (empty($value['title'])) 
+		{
+			if (!empty($content) && function_exists('mb_substr')) 
+			{
+				$value['title'] = mb_substr(strip_tags($content), 0, 20);
+			}
+			else 
+			{
+				$value['title'] = sprintf('%s 小记一篇', $value['pubDate']);
+			}
+		}
+		
+		$data['posts'][] = $value;
+	}
+	
+	return $data;
+}
+
+function lofter_filter($press, $post_id, $postdata, $post, $fetch)
+{
+	if (is_wp_error($post_id))
+	{
+		return ;
+	}
+
+	if ($post['type'] != 'standard')
+	{
+		$id = set_post_format($post_id, $post['type']);
+		$press->step->write(is_wp_error($id) ? '设置文章形式失败' : '设置文章形式成功');
+	}
 }
 
 // diandian_parse
@@ -577,7 +731,7 @@ class Diandian_parse
 			throw new Exception('导入的数据不正确');
 		}
 		
-		$this->_postFomat();
+		postFomat();
 		foreach ($xml->Posts->Post as $item)
 		{
 			if (false != ($value = $this->_parseContent($item, $data['base_url']))) 
@@ -810,27 +964,6 @@ class Diandian_parse
 		
 		return $data;
 	}
-	
-	private function _postFomat() 
-	{
-		$fomat = array(
-			'standard' => '标准', 
-			'image' => '图像', 
-			'link' => '链接', 
-			'audio' => '音频', 
-			'video' => '视频'
-		);
-		
-		if (false != ($diff = array_diff_key($fomat, get_post_format_strings())))
-		{
-			foreach ($diff as $type => $name)
-			{
-				register_post_type($type, array(
-					'public' => true, 'label' => $name
-				));
-			}
-		}
-	}
 }
 
 function get_import_file_id() 
@@ -847,14 +980,15 @@ function waiting_import()
 function add_importer_method()
 {
 	add_filter('get_import_file_csdn', 'get_import_file_id');
-	add_action('import_display_start_lofter', 'waiting_import');
+// 	add_action('import_display_start_lofter', 'waiting_import');
 	
 	add_filter('parse_import_data_lofter', 'lofter_parse', 10, 2);
+	add_action('blogs_levi_import_insert_post_lofter', 'lofter_filter', 10, 5);
 	apply_filters('add_import_method', array(
 		'slug' => 'lofter',
 		'title' => 'Lofter',
 		'category' => false,
-		'description' => '将CSDN（csdn.net）博客中的文章导入到当前wordpress'
+		'description' => '将发表在Lofter（lofter.com）中的文章导入到当前wordpress'
 	));
 
 	$diandian = new Diandian_parse();
