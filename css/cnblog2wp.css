@@ -1,0 +1,160 @@
+.error {
+    background: #fee;
+    border: 1px solid #f00;
+    padding: 8px;
+}
+
+.narrow {
+    float: left;
+    min-height: 180px;
+}
+
+.import-hr {
+    clear: left;
+}
+
+.waiting {
+    font-size: 18px;
+    padding: 60px;
+    text-align: center;
+}
+
+.url_input {
+    width: 320px;
+}
+
+#import-help ul {
+    list-style: initial;
+}
+
+.step_head {
+	width: 600px;
+	height: 32px;
+	position: relative;
+	overflow: hidden;
+	margin: 15px 0 30px;
+}
+
+.step_head b {
+	width: 550px;
+	height: 1px;
+	background: #ddd;
+	position: absolute;
+	top: 9px;
+	left: 0;
+}
+
+.step_head ul {
+    position: absolute;
+	margin-left: -163px;
+}
+
+.step_head li {
+	width: 240px;
+	height: 32px;
+	color: #999;
+	float: left;
+    position: relative;	
+	overflow: hidden;
+}
+
+.step_head span {
+	background: #f1f1f1;
+	padding: 0 15px;
+    position: absolute;
+	right: 0;
+    z-index: 10;
+}
+
+.step_head .current {
+    color: #43bb1b;
+}
+
+.step_head .current b {
+    background: #43bb1b;
+}
+
+#csdn_s.step_head {
+	width: 720px;
+	display: none;
+}
+
+#csdn_s.step_head ul {
+	margin-left: -122px;
+}
+
+#csdn_s.step_head li {
+	width: 200px;
+}
+
+#imp-list {
+	overflow: hidden;
+}
+
+#imp-list img {
+    width: 130px;
+    height: 48px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+	margin: 0 15px 15px 0;
+    float: left;
+	box-shadow: 2px 2px 10px #ddd;
+}
+
+#imp-list .current img {
+	border-color: #43bb1b;
+}
+
+#action {
+	font-size: 24px;
+	text-align: center;
+	padding: 50px 0 20px;
+}
+
+#action a {
+    text-decoration: none;
+}
+
+#action a:hover {
+    text-decoration: underline;
+}
+
+.submit a {
+	margin-left: 20px;
+}
+
+#log_none {
+	color: #666;
+	font-size: 18px;
+	text-align: center;
+	padding-top: 40px;
+}
+
+.impbox {
+	padding: 0 20px;
+	margin-right: 40px;
+}
+
+.impbox ul {
+	list-style-type: disc;
+	margin-left: 20px;
+}
+
+#msg_list {
+	width: 500px;
+	height: 300px;
+	background: #fff;
+	border: 1px solid #ddd;
+	padding: 2px 15px;
+	overflow: auto;
+}
+
+.wp-core-ui p .csdn_btn {
+	margin-right: 10px;
+}
+
+.sub_title small {
+	font-size: 14px;
+	font-weight: normal;
+	margin-left: 18px;
+}
