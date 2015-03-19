@@ -1,0 +1,26 @@
+		<div class="step" id="plupload-upload-ui">
+			<h3><?php echo $num; ?>.上传并导入数据文件</h3>
+			<?php 
+			printf(
+				'<form method="post" id="import-upload-form" class="wp-upload-form" action="admin.php?import=cn_blog&amp;type=%s&amp;step=3&amp;_wpnonce=%s">',
+				$type,
+				wp_create_nonce('import-upload'));
+			?>
+				<input type="hidden" name="import_loadfile_id" id="import_loadfile_id" value="0" />
+				<ul id="filelist"></ul>
+
+				<div id="container">
+					<a id="plupload-browse-button" href="javascript:;">[点击选择数据文件...]</a>
+					<span></span>
+				</div>
+				<pre id="console"></pre>
+				<p class="submit">
+					<input type="submit" name="send_parse_import" id="send_parse_import" value="确认并导入数据" class="button" />
+				</p>
+			<?php echo '</form>'; ?>
+		</div>
+	</div>
+	<?php include 'help.htm'; ?>
+	<hr class="import-hr" />
+	<p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
+</div>

@@ -1,0 +1,13 @@
+<?php if ($type == 1) { ?>
+    <div class="narrow">
+        当前系统禁止创建数据导入目录，请手动建立目录：<font color="red"><?php echo $dir; ?></font>
+    </div>
+<?php } else { ?>
+    <div class="narrow">
+        目录禁止写入数据，请设置目录：<font color="red"><?php echo $dir; ?></font>权限为：<font color="red">0777</font>
+    </div>
+<?php } ?>
+    <?php include 'help.htm'; ?>
+    <hr class="import-hr" />
+    <p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
+</div>

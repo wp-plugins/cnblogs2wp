@@ -1,0 +1,24 @@
+	<div class="narrow">
+		<?php if ($log) { ?>
+		<p></p>
+		<?php foreach ($log as $key => $val) { ?>
+		<div class="postbox impbox">
+			<h3>数据来源：<?php echo $key; ?></h3>
+			<ul>
+				<li><?php printf('文章导入：成功(%d篇) | 跳过(%d篇) | 失败(%d篇)；', $val['add_post'], $val['skip_post'], $val['lost_post']); ?></li>
+				<li><?php printf('远程图片：下载成功(%d张) | 下载失败(%d张)；', $val['add_img'], $val['lost_img']); ?></li>
+				<li><?php printf('分类：新增(%d个) | 失败(%d个)；', $val['add_category'], $val['lost_category']); ?></li>
+				<li><?php printf('标签：新增(%d个) | 失败(%d个)', $val['add_post_tag'], $val['lost_post_tag']); ?></li>
+			</ul>
+			<hr />
+			<p>最后操作时间：<?php echo date('Y-m-d H:i:s', $val['time']); ?></p>
+		</div>
+		<?php } ?>
+		<?php } else { ?>
+		<p id="log_none">没有任何导入数据的记录</p>
+		<?php } ?>
+	</div>
+	<?php include 'help.htm'; ?>
+	<hr class="import-hr" />
+	<p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
+</div>
