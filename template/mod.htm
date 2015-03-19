@@ -1,10 +1,101 @@
+<?php if ($step == 1) { ?>
+    <div class="narrow">
+		<div class="step_head">
+			<ul>
+				<li class="current">
+					<span>1.选择平台</span>
+					<b></b>
+				</li>
+				<li>
+					<span>2.设置导入选项</span>
+					<b></b>
+				</li>
+				<li>
+					<span>3.导入数据</span>
+					<b></b>
+				</li>
+			</ul>
+		</div>
+		<div class="step_head" id="csdn_s">
+			<ul>
+				<li class="current">
+					<span>1.选择平台</span>
+					<b></b>
+				</li>
+				<li>
+					<span>2.验证博客地址</span>
+					<b></b>
+				</li>
+				<li>
+					<span>3.设置导入选项</span>
+					<b></b>
+				</li>
+				<li>
+					<span>4.导入数据</span>
+					<b></b>
+				</li>
+			</ul>
+		</div>
+        <div id="imp-list">
+            <?php 
+            $i = 0;
+            foreach ($group as $val)
+            {
+                printf('<a href="javascript:void(0);" data-type="%s"%s><img src="%s" alt="" /></a>', $val['slug'], $i++ ? '' : ' class="current"', $val['img']);
+            } 
+            ?>
+	    </div>
+	    <div id="action">
+           <a href="<?php echo add_query_arg(array('import' => 'cn_blog','type' => 'cnblogs', 'step' => 2), admin_url('admin.php')); ?>" class="next">下一步 &gt;</a>
+	    </div>
+    </div>
+<?php } elseif ($step == 2) { ?>
     <?php $j = 3; ?>
     <div class="narrow">
+    	<?php if (Cnblog2wp::$type == 'csdn') { ?>
+		<div class="step_head" id="csdn_s" style="display: block;">
+			<ul>
+				<li class="current">
+					<span>1.选择平台</span>
+					<b></b>
+				</li>
+				<li class="current">
+					<span>2.验证博客地址</span>
+					<b></b>
+				</li>
+				<li class="current">
+					<span>3.设置导入选项</span>
+					<b></b>
+				</li>
+				<li>
+					<span>4.导入数据</span>
+					<b></b>
+				</li>
+			</ul>
+		</div>
+    	<?php } else { ?>
+		<div class="step_head">
+			<ul>
+				<li class="current">
+					<span>1.选择平台</span>
+					<b></b>
+				</li>
+				<li class="current">
+					<span>2.设置导入选项</span>
+					<b></b>
+				</li>
+				<li>
+					<span>3.导入数据</span>
+					<b></b>
+				</li>
+			</ul>
+		</div>
+		<?php } ?>
         <?php 
         $data = $this->val[Cnblog2wp::$type];
-        echo $data['description'] ? "<p>{$data['description']}</p>" : ''; 
+        printf('<h3 class="sub_title">从“%s”导入数据<small><a class="prev" href="%s">[重新选择平台]</a></small></h3><p>%s。请根据下面提示，按照步骤导入数据文件：</p>', $data['title'], add_query_arg(array('import' => 'cn_blog','type' => 'cnblogs', 'step' => 1), admin_url('admin.php')), $data['description']);
+        echo $data['description'] ? "" : ''; 
         ?>
-        <p>请根据下面提示，按照步骤导入数据文件：</p>
 		<div class="step">
 			<h3>1.指定作者</h3>
 			<p>请选择导入的文章归属作者为：</p>
@@ -13,18 +104,22 @@
 				$create_users = $this->allow_create_users(); 
 				if ($create_users) {
 				?>
-				<label>
-					<input type="radio" value="1" name="selet_author" />
-					创建一位新用户，登录名为：
-				</label> 
-				<input type="text" name="user_new" value="" /><br />
+				<p>
+					<label>
+						<input type="radio" value="1" name="selet_author" />
+						创建一位新用户，登录名为：
+					</label> 
+					<input type="text" name="user_new" value="" />
+				</p>
 				<?php } ?>
                 
-                <label>
-					<input type="radio" value="2" name="selet_author" checked="checked" />
-					将日志分配给现有用户：
-				</label>
-				<?php wp_dropdown_users(array('name' => 'user_map', 'multi' => true, 'hide_empty' => false)); ?>
+                <p>
+	                <label>
+						<input type="radio" value="2" name="selet_author" checked="checked" />
+						将日志分配给现有用户：
+					</label>
+					<?php wp_dropdown_users(array('name' => 'user_map', 'multi' => true, 'hide_empty' => false)); ?>
+				</p>
 				<p>如果在 WordPress 中创建一个新用户，会随机生成一个用户密码并将权限设置为 subscriber。如果必要的话，请手动更改用户信息。</p>
 			</div>
 		</div>
@@ -68,12 +163,20 @@
 		</div>
 		<?php } ?>
 
-		<?php $j = apply_filters('remote_file', $j); ?>
+		<?php 
+		$j = apply_filters('remote_file', $j); 
+		add_thickbox();
+		?>
+		<p class="error" id="patch-msg">
+			为了导入更大的数据以及更完善的支持，建议搭配使用Wordpress 第三方补丁包；
+			<a href="http://work.com/os/blog/wp/wp-admin/plugin-install.php?tab=plugin-information&amp;plugin=wp-patch-levi&amp;TB_iframe=true&amp;width=772&amp;height=550" class="thickbox">前去安装补丁包 &gt;</a>
+		</p>
 		<div class="step">
 			<h3><?php echo $j; ?>.上传并导入数据文件</h3>
-			<?php wp_import_upload_form('admin.php?import=cn_blog&amp;type='.$data['slug'].'&amp;step=1'); ?>
+			<?php wp_import_upload_form('admin.php?import=cn_blog&amp;type='.$data['slug'].'&amp;step=3'); ?>
 		</div>
 	</div>
+<?php } ?>
 	<?php include 'help.htm'; ?>
 	<hr class="import-hr" />
 	<p>根据你导入的数据文件大小，导入文章数据至wordpress需要一定的时间，请耐心等待</p>
