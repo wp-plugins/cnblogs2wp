@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, csdn, lofter, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.5.1
+Stable tag: 0.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,6 +25,10 @@ http://levi.cg.am/archives/3759
 
 有什么问题以及意见请在这里提出来，我会做出及时修正
 
+> 注：本人一直习惯使用PHP新特性、新语法，这样可能会造成插件在一些老的PHP环境中执行错误；比如PHP 5.3，如果您执行出现错误，请您将错误提示反馈给我，我会做出调整。
+>
+> 如果你的PHP版本比PHP5.3还要低，那可能就不在我支持范围之内了，因为这样您可能连wordpress都有点难跑动，建议升级PHP环境。
+
 将博客园（http://www.cnblogs.com/）以及开源中国-博客（http://www.oschina.net/blog）数据转换至wordpress中
 
 在11年的时候就发布过一个数据导入的插件，最近有朋友反馈会报错。经过检查问题应该出在xml文件检测上。
@@ -33,10 +37,11 @@ http://levi.cg.am/archives/3759
 
 == Screenshots ==
 
-1. 导入博客园（cnblogs）文章到wordpress中
-2. 导入开源中国（osc）博客文章到wordpress中
-3. 导入CSDN博客文章到wordpress中
+1. 开始界面
+2. 设置导入界面
+3. 导入CSDN博客文章前需要对博客做验证
 4. 数据导入过程
+5. 数据导入日志记录
 
 == Installation ==
 
@@ -59,6 +64,23 @@ http://levi.cg.am/archives/3759
 2. 上传对应的数据，导入按照流程导入
 
 == Changelog ==
+
+= 0.6.1 =
+* 支持通过安装[wordpress第三方补丁包][1]，上传导入较大的数据文件；
+* 重写了XML解析规则，更好的兼容不同平台的数据文件；
+* 重写了导入规则，适应较大的数据导入到wordpress，对数据较大的单一博客以及多博客站点做了优化；
+* 修正获取数据后时间转换（由于wordpress以UTC的方式统计时间，中国地区遗漏了8小时，已修复）
+* 解决“点点”博客数据导入遗漏的问题（由于“点点”以时间来制定日志地址，由于上面时间BUG造成问题，已修复）；
+* 优化了“点点”轻博客导入图片类型数据（“点点”默认只提供压缩后的图片，此次优化将尽可能从博客中获取原图）；
+* 解决“点点”博客文章内容中的图片漏抓的问题
+* 新增数据导入日志记录
+* 修正终止数据导入失败的bug
+
+详细见：[http://levi.cg.am/wiki/cnblogs数据导入wordpress/数据导入插件更新说明/wordpress-博客搬家-版本0-6-1更新详情][2]
+
+  [1]: https://wordpress.org/plugins/wp-patch-levi/
+  [2]: http://levi.cg.am/wiki/cnblogs%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5wordpress/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E6%8F%92%E4%BB%B6%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/wordpress-%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6-%E7%89%88%E6%9C%AC0-6-1%E6%9B%B4%E6%96%B0%E8%AF%A6%E6%83%85
+
 
 = 0.5.1 =
 * 增加Lofter轻博客文章导入wordpress；
@@ -105,6 +127,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.6.1 =
+* 对数据导入的方式进行调优，更适合大数据导入到wordpress；
 
 = 0.5.1 =
 * 增加Lofter轻博客文章导入wordpress；

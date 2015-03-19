@@ -1,44 +1,8 @@
 <div class="wrap">
-<style>
-.error {
-    background: #fee;
-    border: 1px solid #f00;
-    padding: 8px;
-}
-
-.narrow {
-    float: left;
-}
-
-.import-hr {
-    clear: left;
-}
-
-.waiting {
-    font-size: 18px;
-    padding: 60px;
-    text-align: center;
-}
-
-.url_input {
-    width: 320px;
-}
-
-#import-help ul {
-    list-style: initial;
-}
-</style>
     <h2>博客搬家到wordpress</h2>
     <h2 class="nav-tab-wrapper">
-        <?php
-        foreach ($this->val as $key => $val) 
-        {
-            printf('<a class="nav-tab%s" href="?import=cn_blog&amp;type=%s">%s</a>', 
-                    $key == Cnblog2wp::$type ? ' nav-tab-active' : '',
-                    $key,
-                    $val['title']);
-        }
-        ?>
+        <a class="nav-tab<?php echo $map ? '' : ' nav-tab-active'; ?>" href="?import=cn_blog">导入博客数据</a>
+        <a class="nav-tab<?php echo !$map ? '' : ' nav-tab-active'; ?>" href="?import=cn_blog&amp;map=1">数据导入记录</a>
     </h2>
     <?php
     $updates = get_plugin_updates();
@@ -53,4 +17,3 @@
         </p>
     </div>
     <?php } ?>
-    
