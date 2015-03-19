@@ -174,6 +174,7 @@ class LoadRemoteUrl extends RemoteAttach
 		$upload['xpath'] = get_dom(file_get_contents($upload['file']));
 		$this->_data = $upload;
 
-		return $temp ? clean_imp($id,  $temp) : $id;
+		$temp && clean_imp($id,  $temp);
+		return $id;
 	}
 }
