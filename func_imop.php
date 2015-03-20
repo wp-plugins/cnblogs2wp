@@ -47,7 +47,7 @@ function check_imp_dir()
 	$path = $step->getPath();
 	$dir = $path['data'];
 
-	if (!is_dir($dir) && !mkdir($dir))
+	if (!is_dir($dir) && !(is_writable(dirname($dir).'/') && mkdir($dir)))
 	{
 		$cnblogs->template('mod_err', array('type' => 1, 'dir' => $dir));
 		include ABSPATH.'wp-admin/admin-footer.php';

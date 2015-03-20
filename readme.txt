@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, csdn, lofter, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.6.2
+Stable tag: 0.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -65,8 +65,11 @@ http://levi.cg.am/archives/3759
 
 == Changelog ==
 
+= 0.6.3 =
+* 修复目录没有操作权限无法写入数据的Bug；
+
 = 0.6.2 =
-* 修复一处删除临时数据的小bug；
+* 修复一处删除临时数据的小Bug；
 
 = 0.6.1 =
 * 支持通过安装[wordpress第三方补丁包][1]，上传导入较大的数据文件；
@@ -130,6 +133,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.6.3 =
+* 修复目录没有操作权限无法写入数据的Bug；
 
 = 0.6.2 =
 * 修复一处删除临时数据的小bug；
