@@ -18,7 +18,6 @@ class ParseImport
 	{
 		global $cnblogs, $step;
 
-		$this->remot = new RemoteAttach();
 		$this->_obj = $cnblogs;
 		$this->step = $step;
 	}
@@ -26,11 +25,11 @@ class ParseImport
 	public function stop()
 	{
 		update_option('cnblog2wp-levi', array(
-		'status' => 0,
-		'type' => Cnblog2wp::$type,
-		'fetch_attachments' => 0,
-		'msg' => '强行系统停止导入数据'
-			));
+			'status' => 0,
+			'type' => Cnblog2wp::$type,
+			'fetch_attachments' => 0,
+			'msg' => '强行系统停止导入数据'
+		));
 
 		$this->step->closed();
 	}
@@ -142,16 +141,16 @@ class ParseImport
 		$this->step->save($import_data);
 
 		update_option('cnblog2wp-levi', array(
-		'status' => 1,
-		'type' => Cnblog2wp::$type,
-		'fetch_attachments' => isset($_POST['fetch_attachments']) ? (int)$_POST['fetch_attachments'] : 0,
-		'msg' => '开始导入数据...'
-			));
+			'status' => 1,
+			'type' => Cnblog2wp::$type,
+			'fetch_attachments' => isset($_POST['fetch_attachments']) ? (int)$_POST['fetch_attachments'] : 0,
+			'msg' => '开始导入数据...'
+		));
 	}
 
 	private function _importing()
 	{
-		// 		add_filter('import_post_meta_key', array($this->_obj, 'is_valid_meta_key'));
+// 		add_filter('import_post_meta_key', array($this->_obj, 'is_valid_meta_key'));
 
 		wp_defer_term_counting(true);
 		wp_defer_comment_counting(true);
@@ -160,13 +159,12 @@ class ParseImport
 		// 暂停缓存
 		wp_suspend_cache_invalidation(true);
 
-		// 		$this->_process();
-		// 		$this->_process(2);
+// 		$this->_process();
+// 		$this->_process(2);
 		$info = $this->_processPosts();
 		wp_suspend_cache_invalidation(false);
 
 		// update incorrect/missing information in the DB
-		$this->_backfileAttachmentUrls();
 		$this->_importEnd($info);
 	}
 
@@ -390,11 +388,15 @@ class ParseImport
 
 				if ($fetch && preg_match('/png|gif|jpe?g/is', $postdata['post_content']))
 				{
+					$this->remot = new RemoteAttach();
+					
 					$postdata['post_parent'] = $post_id;
 					self::$post = $postdata;
 						
 					$pattern = '/src=["|\']?((https?:\/\/[^\/]+\.[^\/\.]{2,6})?\/[^\'">]*\w+\.(png|gif|jpe?g))["|\']?[^>]*>/is';
 					$data = preg_replace_callback($pattern, array($this, 'fetchAtta'), $postdata['post_content']);
+					
+					$this->_backfileAttachmentUrls();
 				}
 			}
 
@@ -443,14 +445,17 @@ class ParseImport
 	private function _backfileAttachmentUrls()
 	{
 		global $wpdb;
-
-		if (false == ($url_remap = $this->remot->get()))
+		
+		$url_remap = $this->remot->get();
+		switch (count($url_remap)) 
 		{
-			return false;
+			case 0: return false;
+			case 1: break;
+			default: 
+				// 根据URL长度排列，长的排在前面，避免长的URL中包含短URL被先行替换
+				uksort($url_remap, array($this->_obj, 'sort_url'));
 		}
-
-		// 根据URL长度排列，长的排在前面，避免长的URL中包含短URL被先行替换
-		uksort($url_remap, array($this->_obj, 'sort_url'));
+		
 		foreach ($url_remap as $from_url => $to_url)
 		{
 			$wpdb->query($wpdb->prepare("UPDATE `{$wpdb->posts}` SET `post_content` = REPLACE(`post_content`, %s, %s);", $from_url, $to_url));

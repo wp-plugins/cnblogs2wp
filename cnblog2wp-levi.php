@@ -3,7 +3,7 @@
  * Plugin Name: 博客搬家到wordpress
  * Plugin URI: http://levi.cg.am
  * Description: 支持从以下站点搬家到wordpress：博客园、OSChina、CSDN、点点、LOFTER
- * Version: 0.6.3
+ * Version: 0.6.4
  * Network: true
  * Depends: wp-patch-levi
  * Author: Levi
