@@ -4,7 +4,7 @@ Donate link:
 Tags: importer, cnblogs, oschina, csdn, lofter, 点点, wordpress
 Requires at least: 3.1.0
 Tested up to: 4.1
-Stable tag: 0.6.3
+Stable tag: 0.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,13 +12,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-**支持导入文章的平台：**
-
-* [博客园](http://www.cnblogs.com/)
-* [开源中国](http://www.oschina.net/blog)
-* [CSDN](http://blog.csdn.net/)
-* [点点](http://www.diandian.com/)
-* [Lofter](http://www.lofter.com/)
+**如果您喜欢这款插件，请点击下面链接，给与5星好评哦~亲！！：**
+https://wordpress.org/support/view/plugin-reviews/cnblogs2wp
 
 **支持连接：**
 http://levi.cg.am/archives/3759
@@ -28,6 +23,14 @@ http://levi.cg.am/archives/3759
 > 注：本人一直习惯使用PHP新特性、新语法，这样可能会造成插件在一些老的PHP环境中执行错误；比如PHP 5.3，如果您执行出现错误，请您将错误提示反馈给我，我会做出调整。
 >
 > 如果你的PHP版本比PHP5.3还要低，那可能就不在我支持范围之内了，因为这样您可能连wordpress都有点难跑动，建议升级PHP环境。
+
+**支持导入文章的平台：**
+
+* [博客园](http://www.cnblogs.com/)
+* [开源中国](http://www.oschina.net/blog)
+* [CSDN](http://blog.csdn.net/)
+* [点点](http://www.diandian.com/)
+* [Lofter](http://www.lofter.com/)
 
 将博客园（http://www.cnblogs.com/）以及开源中国-博客（http://www.oschina.net/blog）数据转换至wordpress中
 
@@ -64,6 +67,11 @@ http://levi.cg.am/archives/3759
 2. 上传对应的数据，导入按照流程导入
 
 == Changelog ==
+
+= 0.6.4 =
+* 修复附件导入遗漏的BUG，详细见：[http://levi.cg.am/wiki/cnblogs数据导入wordpress/数据导入插件更新说明/博客搬家到wordpress-版本0-6-4更新说明](http://levi.cg.am/wiki/cnblogs%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5wordpress/%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E6%8F%92%E4%BB%B6%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E/%E5%8D%9A%E5%AE%A2%E6%90%AC%E5%AE%B6%E5%88%B0wordpress-%E7%89%88%E6%9C%AC0-6-4%E6%9B%B4%E6%96%B0%E8%AF%B4%E6%98%8E)；
+* 更新了User-Agent；
+* 去掉JS中一处打印；
 
 = 0.6.3 =
 * 修复目录没有操作权限无法写入数据的Bug；
@@ -133,6 +141,9 @@ http://levi.cg.am/archives/3759
 * 支持cnblogs随笔导入wordpress
 
 == Upgrade Notice ==
+
+= 0.6.4 =
+* 修复附件导入遗漏的BUG
 
 = 0.6.3 =
 * 修复目录没有操作权限无法写入数据的Bug；

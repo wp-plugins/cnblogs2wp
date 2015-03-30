@@ -9,7 +9,7 @@
 				_wpnonce: imp_data._wpnonce
 			},
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				if (+data) {
 					setTimeout(action, 60000);
 				}
