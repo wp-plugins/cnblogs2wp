@@ -44,7 +44,7 @@ function load_press_script()
 {
 	wp_enqueue_script('cnblog_levi_imp', plugins_url('js/import.js', __FILE__), array('jquery'), false, true);
 	wp_localize_script('cnblog_levi_imp', 'imp_data', array(
-	'ajaxurl' => admin_url('admin-ajax.php'),
-	'_wpnonce' => wp_create_nonce('parse_import_cnblogs2wp')
+		'ajaxurl' => admin_url('admin-ajax.php'),
+		'_wpnonce' => wp_create_nonce('parse_import_cnblogs2wp')
 	));
 }

@@ -46,10 +46,10 @@ function cnblogs_parse($str, $map)
 			'title' => trim($item['title']),
 			'url' => $item['guid'],
 			'pubDate' => date_i18n('Y-m-d H:i:s', strtotime($item['pubDate'])),
-			'content' => str_replace(
-				array('<br>', '<hr>'), array('<br />', '<hr />'), strtolower(htmlspecialchars_decode($item['description'])))
+			'content' => str_ireplace(
+				array('<br>', '<hr>', '\\'), array('<br />', '<hr />', '\\\\'), htmlspecialchars_decode($item['description']))
 		);
-			
+		
 		if (!empty($data['category_map']['slug']))
 		{
 			$value['terms'][] = array(

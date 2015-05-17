@@ -356,6 +356,7 @@ class Diandian_parse
 			}
 		}
 		
+		$data['content'] = str_replace('\\', '\\\\', $data['content']);
 		return $data;
 	}
 }
