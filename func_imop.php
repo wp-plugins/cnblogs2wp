@@ -6,7 +6,7 @@ function bump_request_timeout()
 
 function bump_request_ua()
 {
-	return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.115 Safari/537.36';
+	return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36';
 }
 
 function cnblog2wp_lv_importer_init()

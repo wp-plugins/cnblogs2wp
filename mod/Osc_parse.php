@@ -124,7 +124,7 @@ class Osc_parse
 	
 				if (false != ($content = $this->_query(array(".//*[contains(@class,'content')]", $emt))))
 				{
-					$value['content'] = $content->ownerDocument->saveXML($content);
+					$value['content'] = str_replace('\\', '\\\\', $content->ownerDocument->saveXML($content));
 				}
 	
 				$value && $data['posts'][] = $value;

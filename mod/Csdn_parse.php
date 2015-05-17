@@ -107,7 +107,7 @@ class CSDN_parse
 		if (false != ($content = $load->query("//*[@id='article_content']"))) 
 		{
 			$content = $content->ownerDocument->saveXML($content);
-			$post['content'] = trim($content);
+			$post['content'] = str_replace('\\', '\\\\', trim($content));
 		}
 		else 
 		{

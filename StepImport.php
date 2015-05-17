@@ -9,7 +9,7 @@ class StepImport
 	{
 		global $wpdb;
 
-		// 		$dir = wp_upload_dir();
+// 		$dir = wp_upload_dir();
 		$this->_path = array(
 			'data' => plugin_dir_path(__FILE__).'data/',
 			'temp' => get_temp_dir()

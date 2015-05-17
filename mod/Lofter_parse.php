@@ -128,6 +128,7 @@ function lofter_parse($str, $map)
 			}
 		}
 
+		$value['content'] = str_replace('\\', '\\\\', $value['content']);
 		$data['posts'][] = $value;
 	}
 
